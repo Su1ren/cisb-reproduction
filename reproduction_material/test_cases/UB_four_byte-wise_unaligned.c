@@ -9,7 +9,7 @@
  * Evidence: When compiled with GCC -O2, the strlen function is optimized to use 4-byte reads,
  * which can lead to unaligned memory access if the structure is not properly aligned.
  * 
- * Requirement: GCC 4.4.0, -O2. Valgrind can be used to detect the out-of-bounds access.
+ * Requirement: GCC 4.1.2-4.4 -O2 and above. Valgrind can be used to detect the out-of-bounds access.
  * Mitigation: comment out the offset member in struct X to avoid unaligned access.
  */
 

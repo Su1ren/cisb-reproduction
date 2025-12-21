@@ -1925,8 +1925,8 @@ l-38.c-gcc-O3:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov    eax"
-    section_name: "poll_without_relax:"
+    test_str: "movl	global_var(%rip), %eax"
+    section_name: ".LFB0:"
     special_cause: "DB"
     
 l-38.c-gcc-O2:
@@ -1934,8 +1934,8 @@ l-38.c-gcc-O2:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov    eax"
-    section_name: "poll_without_relax:"
+    test_str: "movl	global_var(%rip), %eax"
+    section_name: ".LFB0:"
     special_cause: "DB"
 
 l-38.c-gcc-O1:
@@ -1943,8 +1943,8 @@ l-38.c-gcc-O1:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov    eax"
-    section_name: "poll_without_relax:"
+    test_str: "movl	global_var(%rip), %eax"
+    section_name: ".LFB0:"
     special_cause: "DB"
 
 l-38.c-gcc-O0:
@@ -1952,8 +1952,8 @@ l-38.c-gcc-O0:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov    eax"
-    section_name: "poll_without_relax:"
+    test_str: "movl	global_var(%rip), %eax"
+    section_name: ".LFB0:"
     special_cause: "DB"
 
 l-38.c-clang-O3:
@@ -1961,7 +1961,7 @@ l-38.c-clang-O3:
     cc: clang-14
     input:
     check_type: 6
-    test_str: "mov    eax"
+    test_str: "movq	global_var@GOTPCREL(%rip), %rax"
     section_name: "poll_without_relax:"
     special_cause: "DB"
 
@@ -1970,7 +1970,7 @@ l-38.c-clang-O2:
     cc: clang-14
     input:
     check_type: 6
-    test_str: "mov    eax"
+    test_str: "movq	global_var@GOTPCREL(%rip), %rax"
     section_name: "poll_without_relax:"
     special_cause: "DB"
 
@@ -1979,7 +1979,7 @@ l-38.c-clang-O1:
     cc: clang-14
     input:
     check_type: 6
-    test_str: "mov    eax"
+    test_str: "movq	global_var@GOTPCREL(%rip), %rax"
     section_name: "poll_without_relax:"
     special_cause: "DB"
 
@@ -1988,7 +1988,7 @@ l-38.c-clang-O0:
     cc: clang-14
     input:
     check_type: 6
-    test_str: "mov    eax"
+    test_str: "movq	global_var@GOTPCREL(%rip), %rax"
     section_name: "poll_without_relax:"
     special_cause: "DB"
 
@@ -1997,8 +1997,8 @@ UB_local_addr.c-gcc-O3:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "and     rax, -4096"
-    section_name: "dummy_usage1:"
+    test_str: "call\t__local_bh_enable"
+    section_name: ".LFB2:"
     special_cause: UB
 
 UB_local_addr.c-gcc-O2:
@@ -2006,8 +2006,8 @@ UB_local_addr.c-gcc-O2:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "and     rax, -4096"
-    section_name: "dummy_usage1:"
+    test_str: "call\t__local_bh_enable"
+    section_name: ".LFB2:"
     special_cause: UB
 
 UB_local_addr.c-gcc-O1:
@@ -2015,17 +2015,17 @@ UB_local_addr.c-gcc-O1:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "and     rax, -4096"
-    section_name: "dummy_usage1:"
+    test_str: "call\t__local_bh_enable"
+    section_name: ".LFB2:"
     special_cause: UB
 
-UB_local_adrr.c-gcc-O0:
+UB_local_addr.c-gcc-O0:
     file_name: "UB_local_addr.c"
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "and     rax, -4096"
-    section_name: "dummy_usage1:"
+    test_str: "call\t__local_bh_enable"
+    section_name: ".LFB2:"
     special_cause: UB
 
 UB_ptr_before_obj.c-clang-O3:
@@ -2033,7 +2033,7 @@ UB_ptr_before_obj.c-clang-O3:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    get_arg_via_stack"
+    test_str: "callq\tget_arg_via_stack"
     section_name: "main:"
     special_cause: UB
 
@@ -2042,7 +2042,7 @@ UB_ptr_before_obj.c-clang-O2:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    get_arg_via_stack"
+    test_str: "callq\tget_arg_via_stack"
     section_name: "main:"
     special_cause: UB
 
@@ -2051,16 +2051,16 @@ UB_ptr_before_obj.c-clang-O1:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    get_arg_via_stack"
+    test_str: "callq\tget_arg_via_stack"
     section_name: "main:"
     special_cause: UB
 
-UB_ptr_before_obj.c-gcc-O0:
+UB_ptr_before_obj.c-clang-O0:
     file_name: "UB_ptr_before_obj.c"
-    cc: gcc-12
+    cc: clang-14
     input:
-    check_type: 6
-    test_str: "mov     QWORD PTR [rsp+8], 0"
+    check_type: 5
+    test_str: "callq\tget_arg_via_stack"
     section_name: "main:"
     special_cause: UB
 
@@ -2069,8 +2069,8 @@ UB_ptr_before_obj.c-gcc-O3:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov     QWORD PTR [rsp+8], 0"
-    section_name: "main:"
+    test_str: "movq	$0, 8(%rsp)"
+    section_name: ".LFB24:"
     special_cause: UB
 
 UB_ptr_before_obj.c-gcc-O2:
@@ -2078,8 +2078,8 @@ UB_ptr_before_obj.c-gcc-O2:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov     QWORD PTR [rsp+8], 0"
-    section_name: "main:"
+    test_str: "movq	$0, 8(%rsp)"
+    section_name: ".LFB24:"
     special_cause: UB
 
 UB_ptr_before_obj.c-gcc-O1:
@@ -2087,8 +2087,8 @@ UB_ptr_before_obj.c-gcc-O1:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov     QWORD PTR [rsp+8], 0"
-    section_name: "main:"
+    test_str: "movq	$0, 8(%rsp)"
+    section_name: ".LFB24:"
     special_cause: UB
 
 UB_ptr_before_obj.c-gcc-O0:
@@ -2096,8 +2096,8 @@ UB_ptr_before_obj.c-gcc-O0:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov     QWORD PTR [rsp+8], 0"
-    section_name: "main:"
+    test_str: "movq	$0, 8(%rsp)"
+    section_name: ".LFB1:"
     special_cause: UB
 
 DSE-memcpy.c-clang-O3:
@@ -2142,7 +2142,7 @@ inline_to_caller.c-gcc-O3:
     input:
     check_type: 6
     test_str: "user_access_begin"
-    section_name: "wrapper:"
+    section_name: ".LFB25:"
     special_cause: DB
 
 inline_to_caller.c-gcc-O2:
@@ -2151,7 +2151,7 @@ inline_to_caller.c-gcc-O2:
     input:
     check_type: 6
     test_str: "user_access_begin"
-    section_name: "wrapper:"
+    section_name: ".LFB25:"
     special_cause: DB
 
 inline_to_caller.c-gcc-O1:
@@ -2160,7 +2160,7 @@ inline_to_caller.c-gcc-O1:
     input:
     check_type: 6
     test_str: "user_access_begin"
-    section_name: "wrapper:"
+    section_name: ".LFB25:"
     special_cause: DB
 
 inline_to_caller.c-gcc-O0:
@@ -2169,7 +2169,7 @@ inline_to_caller.c-gcc-O0:
     input:
     check_type: 6
     test_str: "user_access_begin"
-    section_name: "wrapper:"
+    section_name: ".LFB2:"
     special_cause: DB
 
 inline_to_caller.c-clang-O3:
@@ -2213,8 +2213,8 @@ reorder_evaluation.c-gcc-O3:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "call    debug_lockdep_rcu_enabled_old"
-    section_name: "caller_old:"
+    test_str: "call\tdebug_lockdep_rcu_enabled_old"
+    section_name: ".LFB26:"
     special_cause: DB
 
 reorder_evaluation.c-gcc-O2:
@@ -2222,8 +2222,8 @@ reorder_evaluation.c-gcc-O2:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "call    debug_lockdep_rcu_enabled_old"
-    section_name: "caller_old:"
+    test_str: "call\tdebug_lockdep_rcu_enabled_old"
+    section_name: ".LFB26:"
     special_cause: DB
 
 reorder_evaluation.c-gcc-O1:
@@ -2231,8 +2231,8 @@ reorder_evaluation.c-gcc-O1:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "call    debug_lockdep_rcu_enabled_old"
-    section_name: "caller_old:"
+    test_str: "call\tdebug_lockdep_rcu_enabled_old"
+    section_name: ".LFB26:"
     special_cause: DB
 
 reorder_evaluation.c-gcc-O0:
@@ -2240,8 +2240,8 @@ reorder_evaluation.c-gcc-O0:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "call    debug_lockdep_rcu_enabled_old"
-    section_name: "caller_old:"
+    test_str: "call\tdebug_lockdep_rcu_enabled_old"
+    section_name: ".LFB3:"
     special_cause: DB
 
 reorder_evaluation.c-clang-O3:
@@ -2249,7 +2249,7 @@ reorder_evaluation.c-clang-O3:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    debug_lockdep_rcu_enabled_old"
+    test_str: "callq\tdebug_lockdep_rcu_enabled_old"
     section_name: "caller_old:"
     special_cause: DB
 
@@ -2258,7 +2258,7 @@ reorder_evaluation.c-clang-O2:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    debug_lockdep_rcu_enabled_old"
+    test_str: "callq\tdebug_lockdep_rcu_enabled_old"
     section_name: "caller_old:"
     special_cause: DB
 
@@ -2267,7 +2267,7 @@ reorder_evaluation.c-clang-O1:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    debug_lockdep_rcu_enabled_old"
+    test_str: "callq\tdebug_lockdep_rcu_enabled_old"
     section_name: "caller_old:"
     special_cause: DB
 
@@ -2276,7 +2276,7 @@ reorder_evaluation.c-clang-O0:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    debug_lockdep_rcu_enabled_old"
+    test_str: "callq\tdebug_lockdep_rcu_enabled_old"
     section_name: "caller_old:"
     special_cause: DB
 
@@ -2284,36 +2284,40 @@ UB_merge_causing_unaligned_store.c-gcc-O3:
     file_name: "UB_merge_causing_unaligned_store.c"
     cc: gcc-12
     input:
-    check_type: 5
-    test_str: "mov     DWORD PTR [rdi+8], r8d"
-    section_name: "CWLCollectReadRegData:"
+    check_type: 6
+    test_str: "movq	%r8, 4(%rdi)"
+    section_name: ".LFB0:"
+    default_option: "-shared"
     special_cause: UB
 
 UB_merge_causing_unaligned_store.c-gcc-O2:
     file_name: "UB_merge_causing_unaligned_store.c"
     cc: gcc-12
     input:
-    check_type: 5
-    test_str: "mov     DWORD PTR [rdi+8], r8d"
-    section_name: "CWLCollectReadRegData:"
+    check_type: 6
+    test_str: "movq	%r8, 4(%rdi)"
+    section_name: ".LFB0:"
+    default_option: "-shared"
     special_cause: UB
 
 UB_merge_causing_unaligned_store.c-gcc-O1:
     file_name: "UB_merge_causing_unaligned_store.c"
     cc: gcc-12
     input:
-    check_type: 5
-    test_str: "mov     DWORD PTR [rdi+8], r8d"
-    section_name: "CWLCollectReadRegData:"
+    check_type: 6
+    test_str: "movq	%r8, 4(%rdi)"
+    section_name: ".LFB0:"
+    default_option: "-shared"
     special_cause: UB
 
 UB_merge_causing_unaligned_store.c-gcc-O0:
     file_name: "UB_merge_causing_unaligned_store.c"
     cc: gcc-12
     input:
-    check_type: 5
-    test_str: "mov     DWORD PTR [rdi+8], r8d"
-    section_name: "CWLCollectReadRegData:"
+    check_type: 6
+    test_str: "movq	%r8, 4(%rdi)"
+    section_name: ".LFB0:"
+    default_option: "-shared"
     special_cause: UB
 
 env_memset_in_stream_mode.c-clang-O3:
@@ -2354,38 +2358,38 @@ env_memset_in_stream_mode.c-clang-O0:
 
 UB_four_byte-wise_unaligned.c-gcc-O3:
     file_name: "UB_four_byte-wise_unaligned.c"
-    cc: gcc-4.4
+    cc: gcc-4.1
     input:
-    check_type: 6
-    test_str: "add     rax, 4"
-    section_name: "main:"
+    check_type: 4
+    test_str: "add    $0x4,%rcx"
+    section_name: "<main>:"
     special_cause: UB
 
 UB_four_byte-wise_unaligned.c-gcc-O2:
     file_name: "UB_four_byte-wise_unaligned.c"
-    cc: gcc-4.4
+    cc: gcc-4.1
     input:
-    check_type: 6
-    test_str: "add     rax, 4"
-    section_name: "main:"
+    check_type: 4
+    test_str: "add    $0x4,%rcx"
+    section_name: "<main>:"
     special_cause: UB
 
 UB_four_byte-wise_unaligned.c-gcc-O1:
     file_name: "UB_four_byte-wise_unaligned.c"
-    cc: gcc-4.4
+    cc: gcc-4.1
     input:
-    check_type: 6
-    test_str: "add     rax, 4"
-    section_name: "main:"
+    check_type: 4
+    test_str: "add    $0x4,%rcx"
+    section_name: "<main>:"
     special_cause: UB
 
 UB_four_byte-wise_unaligned.c-gcc-O0:
     file_name: "UB_four_byte-wise_unaligned.c"
-    cc: gcc-4.4
+    cc: gcc-4.1
     input:
-    check_type: 6
-    test_str: "add     rax, 4"
-    section_name: "main:"
+    check_type: 4
+    test_str: "add    $0x4,%rcx"
+    section_name: "<main>:"
     special_cause: UB
 
 DB_bool_promotion.c-clang-O3:
@@ -2573,8 +2577,8 @@ tail_call_optimization.c-gcc-O3:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "call    cpu_startup_entry"
-    section_name: "start_secondary:"
+    test_str: "call\tcpu_startup_entry"
+    section_name: ".LFB2:"
     special_cause: DB
 
 tail_call_optimization.c-gcc-O2:
@@ -2582,8 +2586,8 @@ tail_call_optimization.c-gcc-O2:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "call    cpu_startup_entry"
-    section_name: "start_secondary:"
+    test_str: "call\tcpu_startup_entry"
+    section_name: ".LFB2:"
     special_cause: DB
 
 tail_call_optimization.c-gcc-O1:
@@ -2591,8 +2595,8 @@ tail_call_optimization.c-gcc-O1:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "call    cpu_startup_entry"
-    section_name: "start_secondary:"
+    test_str: "call\tcpu_startup_entry"
+    section_name: ".LFB2:"
     special_cause: DB
 
 tail_call_optimization.c-gcc-O0:
@@ -2600,8 +2604,8 @@ tail_call_optimization.c-gcc-O0:
     cc: gcc-12
     input:
     check_type: 5
-    test_str: "call    cpu_startup_entry"
-    section_name: "start_secondary:"
+    test_str: "call\tcpu_startup_entry"
+    section_name: ".LFB2:"
     special_cause: DB
 
 tail_call_optimization.c-clang-O3:
@@ -2609,7 +2613,7 @@ tail_call_optimization.c-clang-O3:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    cpu_startup_entry"
+    test_str: "callq\tcpu_startup_entry"
     section_name: "start_secondary:"
     special_cause: DB
 
@@ -2618,7 +2622,7 @@ tail_call_optimization.c-clang-O2:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    cpu_startup_entry"
+    test_str: "callq\tcpu_startup_entry"
     section_name: "start_secondary:"
     special_cause: DB
 
@@ -2627,7 +2631,7 @@ tail_call_optimization.c-clang-O1:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    cpu_startup_entry"
+    test_str: "callq\tcpu_startup_entry"
     section_name: "start_secondary:"
     special_cause: DB
 
@@ -2636,7 +2640,7 @@ tail_call_optimization.c-clang-O0:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "call    cpu_startup_entry"
+    test_str: "callq\tcpu_startup_entry"
     section_name: "start_secondary:"
     special_cause: DB
 
@@ -2645,8 +2649,8 @@ register_spill.c-gcc-O3:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov     DWORD PTR [rbp-8]"
-    section_name: "victim:"
+    test_str: "movl	$305419896, -148(%rbp)"
+    section_name: ".LFB0:"
     special_cause: DB
 
 register_spill.c-gcc-O2:
@@ -2654,8 +2658,8 @@ register_spill.c-gcc-O2:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov     DWORD PTR [rbp-8]"
-    section_name: "victim:"
+    test_str: "movl	$305419896, -148(%rbp)"
+    section_name: ".LFB0:"
     special_cause: DB
 
 register_spill.c-gcc-O1:
@@ -2663,8 +2667,8 @@ register_spill.c-gcc-O1:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov     DWORD PTR [rbp-8]"
-    section_name: "victim:"
+    test_str: "movl	$305419896, -148(%rbp)"
+    section_name: ".LFB0:"
     special_cause: DB
 
 register_spill.c-gcc-O0:
@@ -2672,42 +2676,42 @@ register_spill.c-gcc-O0:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "mov     DWORD PTR [rbp-8]"
-    section_name: "victim:"
+    test_str: "movl	$305419896, -148(%rbp)"
+    section_name: ".LFB0:"
     special_cause: DB
 
 l-29.c-gcc-O3:
     file_name: "l-29.c"
     cc: gcc-4.9
     input:
-    check_type: 5
-    test_str: "call    memset"
-    section_name: "main:"
+    check_type: 3
+    test_str: "memset"
+    section_name: "<add_to_ored_words>:"
     special_cause: Others
 
 l-29.c-gcc-O2:
     file_name: "l-29.c"
     cc: gcc-4.9
     input:
-    check_type: 5
-    test_str: "call    memset"
-    section_name: "main:"
+    check_type: 3
+    test_str: "memset"
+    section_name: "<add_to_ored_words>:"
     special_cause: Others
 
 l-29.c-gcc-O1:
     file_name: "l-29.c"
     cc: gcc-4.9
     input:
-    check_type: 5
-    test_str: "call    memset"
-    section_name: "main:"
+    check_type: 3
+    test_str: "memset"
+    section_name: "<add_to_ored_words>:"
     special_cause: Others
 
 l-29.c-gcc-O0:
     file_name: "l-29.c"
     cc: gcc-4.9
     input:
-    check_type: 5
-    test_str: "call    memset"
-    section_name: "main:"
+    check_type: 3
+    test_str: "memset"
+    section_name: "<add_to_ored_words>:"
     special_cause: Others

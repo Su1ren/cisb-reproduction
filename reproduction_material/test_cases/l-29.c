@@ -21,6 +21,7 @@
 typedef union { long double value; unsigned int word[4]; } memory_long_double;
 static unsigned int ored_words[4];
 
+__attribute__((noinline))
 static void add_to_ored_words (long double x) {
     memory_long_double m;
     size_t i;

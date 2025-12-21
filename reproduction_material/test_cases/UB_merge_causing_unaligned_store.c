@@ -9,6 +9,7 @@
  * 
  * Requirement: AARCH64 architecture, GCC 11.2.0
  *              CFLAGS = -fpic -Wall -ansi -std=c99 -Wno-variadic-macros -g -Werror -fPIC -shared -Wall -O2 -ggdb3
+ * minimal options: -shared and -O2 and above
  * Mitigation: use volatile temporary variables to prevent optimization.
  */
 
@@ -44,4 +45,14 @@ void CWLCollectReadRegData(u32* dst,u16 reg_start, u32 reg_length,u32* total_len
  
     *total_length = data_length;
   }
+}
+
+int main() {
+    u32 buffer[10];
+    u32 total_length = 0;
+    addr_t status_data_base_addr = 0x123456789ABCDEF0;
+
+    CWLCollectReadRegData(buffer, 0, 4, &total_length, status_data_base_addr);
+
+    return 0;
 }

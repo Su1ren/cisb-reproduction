@@ -11,11 +11,12 @@ import os
 import argparse
 import subprocess
 import signal
+import re
 
 # Special cases that need specific handling
 arm_file_list = ['l-23.c', 'b-26.c']
 specific_list = ['DB_bool_promotion.c', 'time_inst_reorder.c']
-reproduce_set_path = 'testcases/'
+reproduce_set_path = 'test_cases/'
 
 
 def ubsan_testing(cc, args, testcases_path, file_name, input_str='', output='verbose'):
@@ -208,19 +209,17 @@ def bug_not_trigger(check_type, input_str, test_str, section_start, section_end=
     # "if bug_not_trigger ... num_nobug += 1" -> Returns True means No Bug.
     
     if check_type == 1:
-        # Check if output matches test_str. If so, return 1 (No Bug).
-        if _check_output_match(input_str, test_str, should_match=True):
-            trigger = 1
-
-    elif check_type == 2:
-        # Check if output does NOT match test_str. If so, return 1 (No Bug).
+        # Bug triggered if output is NOT test_str
         if _check_output_match(input_str, test_str, should_match=False):
             trigger = 1
 
+    elif check_type == 2:
+        # Bug triggered if output IS test_str
+        if _check_output_match(input_str, test_str, should_match=True):
+            trigger = 1
+
     elif check_type == 3:
-        # Disassemble and check if test_str EXISTS in section.
-        # If exists -> trigger=1 (No Bug).
-        # This implies test_str is a "good" instruction or pattern.
+        # Bug triggered if disassembly does NOT contain test_str
         os.system('objdump -d a.out > temp.txt')
         with open('temp.txt', 'r') as f:
             read_res = f.read()
@@ -228,13 +227,11 @@ def bug_not_trigger(check_type, input_str, test_str, section_start, section_end=
         start_pos = read_res.find(section_start)
         if start_pos != -1:
             end_pos = read_res.find(section_end, start_pos + len(section_start))
-            if read_res.find(test_str, start_pos, end_pos) != -1:
+            if read_res.find(test_str, start_pos, end_pos) == -1:
                 trigger = 1
 
     elif check_type == 4:
-        # Disassemble and check if test_str does NOT exist in section.
-        # If not exists -> trigger=1 (No Bug).
-        # This implies test_str is a "bad" instruction.
+        # Bug triggered if disassembly DOES contain test_str
         os.system('objdump -d a.out > temp.txt')
         with open('temp.txt', 'r') as f:
             read_res = f.read()
@@ -242,55 +239,75 @@ def bug_not_trigger(check_type, input_str, test_str, section_start, section_end=
         start_pos = read_res.find(section_start)
         if start_pos != -1:
             end_pos = read_res.find(section_end, start_pos + len(section_start))
-            if read_res.find(test_str, start_pos, end_pos) == -1:
+            if read_res.find(test_str, start_pos, end_pos) != -1:
                 trigger = 1
 
     elif check_type == 5:
-        # Check assembly (temp.s) if test_str EXISTS in section (until newline).
-        # Note: Original code used find('\n', ...) as end.
+        # Bug triggered if assembly does NOT contain test_str
         if os.path.exists('temp.s'):
             with open('temp.s', 'r') as f:
                 read_res = f.read()
             
             start_pos = read_res.find(section_start)
             if start_pos != -1:
-                # Find end of the section (next newline after start)
-                end_pos = read_res.find('\n', start_pos + len(section_start))
-                if read_res.find(test_str, start_pos, end_pos) != -1:
+                # Use regex to find the next label instead of simple find(':')
+                # This avoids stopping at colons in comments or instructions
+                label_pattern = re.compile(r'\n\s*[\w$.]+:')
+                match = label_pattern.search(read_res, start_pos + len(section_start))
+                
+                end_pos = -1
+                if match:
+                    end_pos = match.start()
+                
+                found = -1
+                if end_pos == -1:
+                    found = read_res.find(test_str, start_pos)
+                else:
+                    found = read_res.find(test_str, start_pos, end_pos)
+                    
+                if found == -1:
                     trigger = 1
 
     elif check_type == 6:
-        # Check assembly (temp.s) if test_str does NOT exist in section.
+        # Bug triggered if assembly DOES contain test_str
         if os.path.exists('temp.s'):
             with open('temp.s', 'r') as f:
                 read_res = f.read()
             
             start_pos = read_res.find(section_start)
             if start_pos != -1:
-                end_pos = read_res.find('\n', start_pos + len(section_start))
-                if read_res.find(test_str, start_pos, end_pos) == -1:
+                # Use regex to find the next label instead of simple find(':')
+                label_pattern = re.compile(r'\n\s*[\w$.]+:')
+                match = label_pattern.search(read_res, start_pos + len(section_start))
+                
+                end_pos = -1
+                if match:
+                    end_pos = match.start()
+                
+                found = -1
+                if end_pos == -1:
+                    found = read_res.find(test_str, start_pos)
+                else:
+                    found = read_res.find(test_str, start_pos, end_pos)
+                    
+                if found != -1:
                     trigger = 1
 
     elif check_type == 7:
-        # Check assembly (temp.s) if test_str does NOT exist in the LINE AFTER section_start.
+        # Bug triggered if assembly DOES contain test_str in next line
         if os.path.exists('temp.s'):
             with open('temp.s', 'r') as f:
                 read_res = f.read()
-            
-            # Find start of the line containing section_start
-            # Actually original code: find(test_str, find('\n', find(section_start)), find('\n', find('\n', find(section_start)) + 1))
-            # This looks for test_str between the first newline after section_start and the second newline.
-            # Essentially checking the line following the line with section_start.
             
             loc_start = read_res.find(section_start)
             if loc_start != -1:
                 first_newline = read_res.find('\n', loc_start)
                 second_newline = read_res.find('\n', first_newline + 1)
                 
-                if read_res.find(test_str, first_newline, second_newline) == -1:
+                if read_res.find(test_str, first_newline, second_newline) != -1:
                     trigger = 1
 
-    return trigger
+    return not trigger
 
 
 if __name__ == '__main__':
@@ -313,7 +330,10 @@ if __name__ == '__main__':
             argss = f.read()
             
     config_key = file_base + '-' + cc + '-' + opti_level
-    compiler_args = ' -' + opti_level + ' ' + argss
+    if argss.strip().startswith('-' + opti_level):
+        compiler_args = ' ' + argss
+    else:
+        compiler_args = ' -' + opti_level + ' ' + argss
     
     # Determine config path relative to script location or current dir
     # Assuming script is run from its directory or we use relative path
