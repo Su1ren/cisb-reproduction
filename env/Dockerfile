@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 # Fix timezone issue
 ENV TZ=Europe/London
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -18,7 +18,12 @@ RUN apt-get -y update && apt-get -y install build-essential \
 	wget \
 	git \
 	make \
-	unzip
+	unzip \
+	flex \
+	libgmp-dev \
+	libmpfr-dev \
+	libmpc-dev \
+	texinfo
 
 
 RUN mkdir /cisb_docker
