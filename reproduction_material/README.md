@@ -69,14 +69,8 @@ These are the format of these oracles:
 
 ## Supplements
 
-After adding extra 17 test cases, not all are always reproducible due to the
-non-deterministic nature of compiler optimizations.
+After adding extra 17 test cases, not all of them will get wrong execution results under the specified compiler options.
 
-According to the simplicity of reproduction, we exclude some test cases from the
-automatic reproduction script. The excluded test cases are listed below:
-- DB_type_demotion.c: sometimes fails.
-- speculative_code_motion.c: requries BPF toolchain to verify the speculation.
-- DB_bool_promotion.c: requires BPF toolchain to verify the bug.
-- time_inst_reorder.c: requires gcc-avr-4.6 which is unavailable for now.
+- DB_type_demotion.c sometimes fails on x86_64.
 
-Consequently, we mannually verified the reproduction of these test cases.
+Additionally, l-41 already exists in the original CISB dataset, so we do not use l-41-new.c for reproduction material.

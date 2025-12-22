@@ -15,7 +15,6 @@ import re
 
 # Special cases that need specific handling
 arm_file_list = ['l-23.c', 'b-26.c']
-specific_list = ['DB_bool_promotion.c', 'time_inst_reorder.c']
 reproduce_set_path = 'test_cases/'
 
 

@@ -13,10 +13,9 @@ from reproduction_material.reproduction_tester import bug_not_trigger
 from reproduction_material.reproduction_tester import ubsan_testing
 from reproduction_material.reproduction_tester import warning_testing
 from reproduction_material.reproduction_tester import arm_file_list
-from reproduction_material.reproduction_tester import specific_list
 
 config_file_path = 'reproduction_material/config.yml'
-reproduce_set_path = 'reproduction_material/testcases/'
+reproduce_set_path = 'reproduction_material/test_cases/'
 
 class EvaluationStats:
     """Holds statistics for the evaluation process."""
@@ -79,50 +78,6 @@ def _handle_special_cases(config_name, file_name, option_file_name, output, stat
         if not gcc_only:
             stats.num_bug_clang += 1
             stats.num_UB_clang += 1
-        return True
-
-    if config_name == specific_list[0]: # DB_bool_promotion.c
-        with open(option_file_name, 'r') as f:
-            opt_level = f.read().strip().split(' ')[0]
-        
-        if opt_level in ['-O2', '-O3']:
-            if output == 'verbose':
-                print('bug file:  ', file_name)
-            stats.num_bug += 1
-            if not clang_only:
-                stats.num_bug_gcc += 1
-            if not gcc_only:
-                stats.num_bug_clang += 1
-        else:
-            if output == 'verbose':
-                print('no bug file:  ', file_name)
-            stats.num_nobug += 1
-            if not clang_only:
-                stats.num_nobug_gcc += 1
-            if not gcc_only:
-                stats.num_nobug_clang += 1
-        return True
-
-    if config_name == specific_list[1]: # time_inst_reorder.c
-        with open(option_file_name, 'r') as f:
-            opt_level = f.read().strip().split(' ')[0]
-            
-        if opt_level == '-O1':
-            if output == 'verbose':
-                print('bug file:  ', file_name)
-            stats.num_bug += 1
-            if not clang_only:
-                stats.num_bug_gcc += 1
-            if not gcc_only:
-                stats.num_bug_clang += 1
-        else:
-            if output == 'verbose':
-                print('no bug file:  ', file_name)
-            stats.num_nobug += 1
-            if not clang_only:
-                stats.num_nobug_gcc += 1
-            if not gcc_only:
-                stats.num_nobug_clang += 1
         return True
 
     return False
@@ -354,8 +309,7 @@ if __name__ == '__main__':
     parser.add_argument('-opt', type=argparse.FileType('r'), help='Choose one option file in \'compiler_strategies\' directory')
     input_args = parser.parse_args()
     if input_args.opt:
-        evalue_options = input_args.opt
-        get_dataset_value(evalue_options.name)
+        evaluate_options = input_args.opt
+        get_dataset_value(evaluate_options.name)
     else:
         parser.print_help()
-

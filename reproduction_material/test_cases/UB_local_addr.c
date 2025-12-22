@@ -47,3 +47,8 @@ static void __local_bh_enable(unsigned int cnt) {
 void dummy_usage1(unsigned int cnt) {
   __local_bh_enable(cnt);
 }
+
+int main() {
+    dummy_usage1(1);
+    return 0;
+}

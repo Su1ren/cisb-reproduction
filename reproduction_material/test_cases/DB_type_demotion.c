@@ -10,7 +10,7 @@
  * The execution result is NOT reproduced, but the demotion was reported
  * to introduce a bug in Linux kernel code, observed in this test case as well.
  * 
- * Requirement: GCC/Clang -O2 on a 32-bit architecture, 64-bit sometimes fails.
+ * Requirement: GCC/Clang -O1 and above on a 32-bit architecture, 64-bit sometimes fails.
  * Mitigation: Do the multiplication before the division.
  */
 #include <stdint.h>

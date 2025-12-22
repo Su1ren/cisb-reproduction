@@ -2394,182 +2394,198 @@ UB_four_byte-wise_unaligned.c-gcc-O0:
 
 DB_bool_promotion.c-clang-O3:
     file_name: "DB_bool_promotion.c"
-    cc: clang-17-BPF
+    cc: clang-17
     input:
     check_type: 5
-    test_str: "if r1 != 0 goto LBB1_2"
+    test_str: "cmp"
     section_name: "connect_v4_prog:"
+    default_option: "-masm=intel"
     special_cause: DB
 
 DB_bool_promotion.c-clang-O2:
     file_name: "DB_bool_promotion.c"
-    cc: clang-17-BPF
+    cc: clang-17
     input:
     check_type: 5
-    test_str: "if r1 != 0 goto LBB1_2"
+    test_str: "cmp"
     section_name: "connect_v4_prog:"
+    default_option: "-masm=intel"
     special_cause: DB
 
 DB_bool_promotion.c-clang-O1:
     file_name: "DB_bool_promotion.c"
-    cc: clang-17-BPF
+    cc: clang-17
     input:
     check_type: 5
-    test_str: "if r1 != 0 goto LBB1_2"
+    test_str: "cmp"
     section_name: "connect_v4_prog:"
+    default_option: "-masm=intel"
     special_cause: DB
 
 DB_bool_promotion.c-clang-O0:
     file_name: "DB_bool_promotion.c"
-    cc: clang-17-BPF
+    cc: clang-17
     input:
     check_type: 5
-    test_str: "if r1 != 0 goto LBB1_2"
+    test_str: "cmp"
     section_name: "connect_v4_prog:"
+    default_option: "-masm=intel"
     special_cause: DB
 
 DB_type_demotion.c-gcc-O3:
     file_name: "DB_type_demotion.c"
     cc: gcc-7
     input:
-    check_type: 6
-    test_str: "mov     eax, -1000000000"
-    section_name: "test:"
+    check_type: 5
+    test_str: "movl	-4(%ebp), %edx"
+    section_name: ".LFB0:"
+    default_option: "-m32"
     special_cause: DB
 
 DB_type_demotion.c-gcc-O2:
     file_name: "DB_type_demotion.c"
     cc: gcc-7
     input:
-    check_type: 6
-    test_str: "mov     eax, -1000000000"
-    section_name: "test:"
+    check_type: 5
+    test_str: "movl	-4(%ebp), %edx"
+    section_name: ".LFB0:"
+    default_option: "-m32"
     special_cause: DB
 
 DB_type_demotion.c-gcc-O1:
     file_name: "DB_type_demotion.c"
     cc: gcc-7
     input:
-    check_type: 6
-    test_str: "mov     eax, -1000000000"
-    section_name: "test:"
+    check_type: 5
+    test_str: "movl	-4(%ebp), %edx"
+    section_name: ".LFB0:"
+    default_option: "-m32"
     special_cause: DB
 
 DB_type_demotion.c-gcc-O0:
     file_name: "DB_type_demotion.c"
     cc: gcc-7
     input:
-    check_type: 6
-    test_str: "mov     eax, -1000000000"
-    section_name: "test:"
+    check_type: 5
+    test_str: "movl	-4(%ebp), %edx"
+    section_name: ".LFB0:"
+    default_option: "-m32"
     special_cause: DB
 
 DB_type_demotion.c-clang-O3:
     file_name: "DB_type_demotion.c"
-    cc: clang-10
+    cc: clang-12
     input:
-    check_type: 6
-    test_str: "mov     eax, 1000000000"
+    check_type: 5
+    test_str: "movl	-20(%ebp), %edx"
     section_name: "test:"
+    default_option: "-m32"
     special_cause: DB
 
 DB_type_demotion.c-clang-O2:
     file_name: "DB_type_demotion.c"
-    cc: clang-10
+    cc: clang-12
     input:
-    check_type: 6
-    test_str: "mov     eax, 1000000000"
+    check_type: 5
+    test_str: "movl	-20(%ebp), %edx"
     section_name: "test:"
+    default_option: "-m32"
     special_cause: DB
 
 DB_type_demotion.c-clang-O1:
     file_name: "DB_type_demotion.c"
-    cc: clang-10
+    cc: clang-12
     input:
-    check_type: 6
-    test_str: "mov     eax, 1000000000"
+    check_type: 5
+    test_str: "movl	-20(%ebp), %edx"
     section_name: "test:"
+    default_option: "-m32"
     special_cause: DB
 
 DB_type_demotion.c-clang-O0:
     file_name: "DB_type_demotion.c"
-    cc: clang-10
+    cc: clang-12
     input:
-    check_type: 6
-    test_str: "mov     eax, 1000000000"
+    check_type: 5
+    test_str: "movl	-20(%ebp), %edx"
     section_name: "test:"
+    default_option: "-m32"
     special_cause: DB
 
 time_inst_reorder.c-gcc-O3:
     file_name: "time_inst_reorder.c"
-    cc: avr-gcc
+    cc: gcc-4.1
     input:
-    check_type: 6
-    test_str: "ldi r18,lo8(5170)"
-    section_name: "main:"
+    check_type: 5
+    test_str: "div"
+    section_name: ".LFB3:"
     special_cause: DB
 
 time_inst_reorder.c-gcc-O2:
     file_name: "time_inst_reorder.c"
-    cc: avr-gcc
+    cc: gcc-4.1
     input:
-    check_type: 6
-    test_str: "ldi r18,lo8(5170)"
-    section_name: "main:"
+    check_type: 5
+    test_str: "div"
+    section_name: ".LFB3:"
     special_cause: DB
 
 time_inst_reorder.c-gcc-O1:
     file_name: "time_inst_reorder.c"
-    cc: avr-gcc
+    cc: gcc-4.1
     input:
-    check_type: 6
-    test_str: "ldi r18,lo8(5170)"
-    section_name: "main:"
+    check_type: 5
+    test_str: "div"
+    section_name: ".LFB3:"
     special_cause: DB
 
 time_inst_reorder.c-gcc-O0:
     file_name: "time_inst_reorder.c"
-    cc: avr-gcc
+    cc: gcc-4.1
     input:
-    check_type: 6
-    test_str: "ldi r18,lo8(5170)"
-    section_name: "main:"
+    check_type: 5
+    test_str: "div"
+    section_name: ".LCFI4:"
     special_cause: DB
 
 speculative_code_motion.c-clang-O3:
     file_name: "speculative_code_motion.c"
-    cc: clang-11-BPF
+    cc: clang-11
     input:
-    check_type: 4
-    test_str: "r2 += r1"
-    section_name: ".Ltmp24:"
+    check_type: 6
+    test_str: "r0 = 0"
+    section_name: "bpf_test:"
+    default_option: "--target=bpf"
     special_cause: DB
 
 speculative_code_motion.c-clang-O2:
     file_name: "speculative_code_motion.c"
-    cc: clang-11-BPF
+    cc: clang-11
     input:
-    check_type: 4
-    test_str: "r2 += r1"
-    section_name: ".Ltmp24:"
+    check_type: 6
+    test_str: "r0 = 0"
+    section_name: "bpf_test:"
+    default_option: "--target=bpf"
     special_cause: DB
 
 speculative_code_motion.c-clang-O1:
     file_name: "speculative_code_motion.c"
-    cc: clang-11-BPF
+    cc: clang-11
     input:
-    check_type: 4
-    test_str: "r2 += r1"
-    section_name: ".Ltmp24:"
+    check_type: 6
+    test_str: "r0 = 0"
+    section_name: "bpf_test:"
+    default_option: "--target=bpf"
     special_cause: DB
 
 speculative_code_motion.c-clang-O0:
     file_name: "speculative_code_motion.c"
-    cc: clang-11-BPF
+    cc: clang-11
     input:
-    check_type: 4
-    test_str: "r2 += r1"
-    section_name: ".Ltmp24:"
+    check_type: 6
+    test_str: "r0 = 0"
+    section_name: "LBB0_2:"
+    default_option: "--target=bpf"
     special_cause: DB
 
 tail_call_optimization.c-gcc-O3:

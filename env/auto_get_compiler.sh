@@ -12,14 +12,28 @@ echo  "deb http://dk.archive.ubuntu.com/ubuntu/ xenial main universe" >> /etc/ap
 echo  'deb http://dk.archive.ubuntu.com/ubuntu/ trusty main universe' >> /etc/apt/sources.list
 echo  'deb http://archive.ubuntu.com/ubuntu/ jammy main universe' >> /etc/apt/sources.list
 
+# get clang-17 from llvm repo (tsinghua mirror)
+echo "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/llvm-apt/jammy/ llvm-toolchain-jammy-17 main" | sudo tee /etc/apt/sources.list.d/llvm.list
+
+# import the GPG key
+wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/llvm.asc
+
 apt-get update
 apt-get install clang-12 clang-14 gcc-4.4 gcc-4.9 gcc-7 gcc-12 -y 
+apt install clang-11 clang-17 -y
 
 # get gcc-4.1.2 binary from a repo
 git clone https://github.com/Su1ren/gcc-4.1.2.git
 ln -s /cisb_docker/CISB-dataset/gcc-4.1.2/bin/gcc-4.1 /usr/bin
 
+# config bpf toolchain
+apt install libbpfcc-dev libbpf-dev -y
+sudo ln -sf /usr/include/$(uname -m)-linux-gnu/asm /usr/include/asm
+
 # old gcc runtime
+ln -s /usr/lib/x86_64-linux-gnu/crt1.o ./
+ln -s /usr/lib/x86_64-linux-gnu/crti.o ./
+ln -s /usr/lib/x86_64-linux-gnu/crtn.o ./
 ln -s /usr/lib/x86_64-linux-gnu/crt1.o ./reproduction_material
 ln -s /usr/lib/x86_64-linux-gnu/crti.o ./reproduction_material
 ln -s /usr/lib/x86_64-linux-gnu/crtn.o ./reproduction_material

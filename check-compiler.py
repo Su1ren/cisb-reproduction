@@ -1,7 +1,7 @@
 import subprocess
 
 # required compilers
-compiler_list = ['clang-12', 'clang-14', 'gcc-4.1', 'gcc-4.4', 'gcc-4.9', 'gcc-7', 'gcc-12']
+compiler_list = ['clang-11', 'clang-12', 'clang-14', 'gcc-4.1', 'gcc-4.4', 'gcc-4.9', 'gcc-7', 'gcc-12']
 
 if __name__ == '__main__':
     for compiler in compiler_list:

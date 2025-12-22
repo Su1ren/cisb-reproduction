@@ -10,7 +10,7 @@
  * the result_u2 computation into two steps, moving the time-consuming division 
  * after the second timer read, leading to incorrect timing results.
  * 
- * Requirement: AVR GCC 4.3.3 - 4.6.4, -O1 only.
+ * Requirement: AVR GCC/GCC --target=avr 4.3.3 - 4.6.4, plain GCC 4.1.2-4.4.7 -O1 and above.
  * Mitigation: Mark result_u2 as volatile to prevent evaluation splitting/reordering.
  */
 

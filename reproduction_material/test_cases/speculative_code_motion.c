@@ -9,8 +9,9 @@
  * Evidence: When compile with optimization and BPF target, the compiler may speculatively
  * execute the addition of filepart_length to payload before confirming that filepart_length
  * is within bounds, leading to temporarily out-of-bounds access.
+ * The program insert a revert path with speculation on branches.
  * 
- * Requirement: LLVM/Clang 11 or lower with -O2 or higher targeting eBPF. libbpf is needed to run the BPF program.
+ * Requirement: LLVM/Clang 11 or lower with -O1 or higher --target=bpf. libbpf is needed.
  * Mitigation: Use barrier_var on filepart_length to prevent speculative code motion.
  */
 
