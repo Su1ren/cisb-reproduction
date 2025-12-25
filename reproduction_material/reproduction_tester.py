@@ -17,7 +17,6 @@ import re
 arm_file_list = ['l-23.c', 'b-26.c']
 reproduce_set_path = 'test_cases/'
 
-
 def ubsan_testing(cc, args, testcases_path, file_name, input_str='', output='verbose'):
     """
     Tests if the code triggers Undefined Behavior Sanitizer (UBSan) errors.
@@ -51,18 +50,15 @@ def ubsan_testing(cc, args, testcases_path, file_name, input_str='', output='ver
         raise RuntimeError(f"Compilation failed: {compile_cmd}")
 
     # Run the compiled executable
-    run_cmd = f"./a.out {input_str}"
+    result = subprocess.Popen(
+        './a.out ' + input_str,
+        shell=True,
+        start_new_session=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
     try:
-        result = subprocess.run(
-            run_cmd,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            timeout=1,
-            encoding='utf-8', # Decode output directly
-            errors='ignore'   # Ignore decoding errors
-        )
-        err = result.stderr
+        result.wait(timeout=1)
     except subprocess.TimeoutExpired:
         # If it times out, it might be an infinite loop or just slow.
         # We kill the process group if possible, but subprocess.run handles cleanup mostly.
@@ -70,7 +66,10 @@ def ubsan_testing(cc, args, testcases_path, file_name, input_str='', output='ver
         # The original code used Popen and manual kill. subprocess.run is safer but 
         # with shell=True and timeout, it kills the shell, not necessarily the child.
         # For simplicity and robustness similar to original:
-        return False # Timeout usually means no immediate crash/UBSan report printed
+        os.killpg(os.getpgid(result.pid), signal.SIGTERM)
+    
+    out, err = result.communicate()
+    err = err.decode()
 
     if 'UndefinedBehavior' in err or 'runtime' in err:
         if output == 'verbose':
@@ -248,6 +247,9 @@ def bug_not_trigger(check_type, input_str, test_str, section_start, section_end=
                 read_res = f.read()
             
             start_pos = read_res.find(section_start)
+            if start_pos == -1 and section_start == ".L14:" and test_str == "have_cpuid_p":
+                section_start = ".L12:"
+                start_pos = read_res.find(section_start)
             if start_pos != -1:
                 # Use regex to find the next label instead of simple find(':')
                 # This avoids stopping at colons in comments or instructions

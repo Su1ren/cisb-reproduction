@@ -248,6 +248,10 @@ def table_7():
         mitigation_cisb_info.append([m, scope, mitigation_cisb_map[m]])
     print(tabulate(mitigation_cisb_info, headers=["Automatic Prevention", "Target CISB type", "Target CISB"], tablefmt='fancy_grid'))
     
+def fmt(prevented, triggered):
+    total = prevented + triggered
+    if total == 0: return "0/0 (0.0)"
+    return f"{prevented}/{total} ({prevented/total:.4f})"
         
 def table_6_eff():
     from effectiveness_evaluation import get_dataset_value
@@ -257,18 +261,19 @@ def table_6_eff():
     strategy = ['O3', 'O2', 'O1', 'O0', 'All-ub_clang', 'All-ub_gcc', 'All-cisb_gcc', 'All-cisb_clang', 'ubsan', 'wall']
     table_header = ['Strategy', '', 'Eff.(UB-CISB)',  'Eff. (all CISB)']
     table_data = []
+
     for s in strategy:
         res = get_dataset_value(file_path + '/' + s + '.txt', output=None)
         if 'ub' in s or s == 'wall':
             if 'clang' not in s:
-                table_data.append((s, 'gcc', res[1]/(res[1]+res[0]), '/'))
+                table_data.append((s, 'gcc', fmt(res[1], res[0]), '/'))
             if 'gcc' not in s:
-                table_data.append((s, 'clang', res[5]/(res[5]+res[4]), '/'))
+                table_data.append((s, 'clang', fmt(res[5], res[4]), '/'))
             continue
         if 'clang' not in s:
-            table_data.append((s, 'gcc', res[1]/(res[1]+res[0]), res[3]/(res[3]+res[2])))
+            table_data.append((s, 'gcc', fmt(res[1], res[0]), fmt(res[3], res[2])))
         if 'gcc' not in s:
-            table_data.append((s, 'clang', res[5]/(res[5]+res[4]), res[7]/(res[7]+res[6])))
+            table_data.append((s, 'clang', fmt(res[5], res[4]), fmt(res[7], res[6])))
     print(tabulate(table_data, headers=table_header, tablefmt='fancy_grid'))
 
 def table_6_overhead():

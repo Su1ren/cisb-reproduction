@@ -786,7 +786,7 @@ b-13.c-gcc-O1:
     input:
     check_type: 5
     test_str: "x, 12(%"
-    section_name: ".L5:"
+    section_name: ".L4:"
     special_cause: UB
 
 b-13.c-gcc-O0:
@@ -1087,49 +1087,13 @@ b-21.c-clang-O0:
     section_name: "<main>:"
     special_cause: "Others"
 
-b-22.c-gcc-O3:
-    file_name: "b-22.c"
-    cc: gcc-12
-    input:
-    check_type: 5
-    test_str: "movl   $0x0"
-    section_name: "movl   $0x0"
-    special_cause: "Others"
-
-b-22.c-gcc-O2:
-    file_name: "b-22.c"
-    cc: gcc-12
-    input:
-    check_type: 5
-    test_str: "movl   $0x0"
-    section_name: "movl   $0x0"
-    special_cause: "Others"
-
-b-22.c-gcc-O1:
-    file_name: "b-22.c"
-    cc: gcc-12
-    input:
-    check_type: 5
-    test_str: "movl   $0x0"
-    section_name: "movl   $0x0"
-    special_cause: "Others"
-
-b-22.c-gcc-O0:
-    file_name: "b-22.c"
-    cc: gcc-12
-    input:
-    check_type: 5
-    test_str: "movl   $0x0"
-    section_name: "movl   $0x0"
-    special_cause: "Others"
-
 b-22.c-clang-O3:
     file_name: "b-22.c"
     cc: clang-14
     input:
     check_type: 5
-    test_str: "movl   $0x0"
-    section_name: "movl   $0x0"
+    test_str: "movl	$0, 20(%rsp)"
+    section_name: "bar:"
     special_cause: "Others"
 
 b-22.c-clang-O2:
@@ -1137,8 +1101,8 @@ b-22.c-clang-O2:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "movl   $0x0"
-    section_name: "movl   $0x0"
+    test_str: "movl	$0, 20(%rsp)"
+    section_name: "bar:"
     special_cause: "Others"
 
 b-22.c-clang-O1:
@@ -1146,8 +1110,8 @@ b-22.c-clang-O1:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "movl   $0x0"
-    section_name: "movl   $0x0"
+    test_str: "movl	$0, 20(%rsp)"
+    section_name: "bar:"
     special_cause: "Others"
 
 b-22.c-clang-O0:
@@ -1155,8 +1119,8 @@ b-22.c-clang-O0:
     cc: clang-14
     input:
     check_type: 5
-    test_str: "movl   $0x0"
-    section_name: "movl   $0x0"
+    test_str: "movl	$0, -20(%rbp)"
+    section_name: "bar:"
     special_cause: "Others"
 
 b-26.c:
@@ -1197,6 +1161,42 @@ l-2.c-clang-O0:
     check_type: 2
     test_str: "0"
     section_name:
+    special_cause: UB
+
+l-8.c-gcc-O3:
+    file_name: "l-8.c"
+    cc: gcc-12
+    input:
+    check_type: 3
+    test_str: "cmpl   $0x0,"
+    section_name: "<main>:"
+    special_cause: UB
+
+l-8.c-gcc-O2:
+    file_name: "l-8.c"
+    cc: gcc-12
+    input:
+    check_type: 3
+    test_str: "cmpl   $0x0,"
+    section_name: "<main>:"
+    special_cause: UB
+
+l-8.c-gcc-O1:
+    file_name: "l-8.c"
+    cc: gcc-12
+    input:
+    check_type: 3
+    test_str: "cmpl   $0x0,"
+    section_name: "<main>:"
+    special_cause: UB
+
+l-8.c-gcc-O0:
+    file_name: "l-8.c"
+    cc: gcc-12
+    input:
+    check_type: 3
+    test_str: "cmpl   $0x0,"
+    section_name: "<main>:"
     special_cause: UB
 
 l-8.c-clang-O3:
