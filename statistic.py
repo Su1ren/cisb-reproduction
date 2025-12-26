@@ -2,8 +2,8 @@ import csv
 from tabulate import tabulate
 from spec.get_spec2006_result import table6_overhead
 
-bug_class = "dataset/CISB-dataset-classification.csv"
-bug_detail = "dataset/CISB-dataset-detailed-info.csv"
+bug_class = "dataset/CISB-dataset-classification-update.csv"
+bug_detail = "dataset/CISB-dataset-detailed-info-update.csv"
 
 class unique_bug:
     def __init__(self, id, bug_class):
@@ -31,7 +31,10 @@ bug_class_map = {
 for line in class_rows:
     if line:
         bid = line["Unique bug id"]
-        bclass= bug_class_map[line["Insecure optimization behaviors"]]
+        try:
+            bclass= bug_class_map[line["Insecure optimization behaviors"]]
+        except KeyError:
+            print('Unknown bug id', line)
         new_bug = unique_bug(bid, bclass)
         bugs.append(new_bug)   
 
@@ -131,8 +134,8 @@ def table_3():
 
     class_occurance_statistic = dict()
     for c,o in class_occurance.items():
-        # Years 04-06 07-09 10-12 13-15 16-18 19-21
-        p = [0] * 6
+        # Years 04-06 07-09 10-12 13-15 16-18 19-21 22-24
+        p = [0] * 7
         for year in o:
             if int(year) <= 2006:
                 p[0] += 1
@@ -144,8 +147,10 @@ def table_3():
                 p[3] += 1
             elif int(year) <= 2018:
                 p[4] += 1
-            else:
+            elif int(year) <= 2021:
                 p[5] += 1
+            else:
+                p[6] += 1
         class_occurance_statistic[c] = p
 
 
@@ -158,7 +163,7 @@ def table_3():
     table = [[key, *value] for key, value in class_occurance_statistic.items()]
 
     # Print the table using tabulate and specify row and column headers
-    print(tabulate(table, headers=['', '04-06', '07-09', '10-12', '13-15', '16-18', '19-21', 'Total'], tablefmt='fancy_grid'))
+    print(tabulate(table, headers=['', '04-06', '07-09', '10-12', '13-15', '16-18', '19-21', '22-24', 'Total'], tablefmt='fancy_grid'))
 
 
 class mitigation_work():
@@ -213,7 +218,7 @@ def table_7():
         'KUBO': ['l-13', 'l-8', 'l-24', 'b-9', 'b-10', 'b-11', 'b-4']
     }
 
-    mitigation_cisb_commets = {
+    mitigation_cisb_comments = {
         'Wu': "we suppose they can prevent all UB-based elimination bugs caused by clang",
         'KUBO': "the UB types they support are shown in their Table II"
     }
