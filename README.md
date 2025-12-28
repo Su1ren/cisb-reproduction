@@ -55,7 +55,7 @@ docker run -itd -v /path/to/cpu2006:/cisb_docker/CISB-dataset/spec/cpu2006 --nam
 
 As an alternative, you can also place SPEC CPU 2006 anywhere you like within the Docker container. In that case, you will need to set the environment variable before running the experiment in the container.
 ```
-export SEPC_CPU_2006_PATH='path/to/cpu2006'
+export SPEC_CPU_2006_PATH='path/to/cpu2006'
 ```
 
 5. Get into the Docker container:

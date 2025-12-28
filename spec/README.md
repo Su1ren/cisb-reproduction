@@ -1,6 +1,6 @@
 # Setup for SPEC CPU 2006 
 1. Install [SPEC CPU2006 Benchmark](https://www.spec.org/cpu2006/).
-- Please note that we can't share SPEC CPU2006 here becuase it is commercial.
+- Please note that we can't share SPEC CPU2006 here because it is commercial.
 
 2. After obtaining SPEC CPU2006 Benchmark, it is needed to 
 **place the `cpu2006` folder under the `spec` directory**，which is automatically 

@@ -2397,9 +2397,8 @@ DB_bool_promotion.c-clang-O3:
     cc: clang-17
     input:
     check_type: 5
-    test_str: "cmp"
+    test_str: "cmpl	$0"
     section_name: "connect_v4_prog:"
-    default_option: "-masm=intel"
     special_cause: DB
 
 DB_bool_promotion.c-clang-O2:
@@ -2407,9 +2406,8 @@ DB_bool_promotion.c-clang-O2:
     cc: clang-17
     input:
     check_type: 5
-    test_str: "cmp"
+    test_str: "cmpl	$0"
     section_name: "connect_v4_prog:"
-    default_option: "-masm=intel"
     special_cause: DB
 
 DB_bool_promotion.c-clang-O1:
@@ -2417,9 +2415,8 @@ DB_bool_promotion.c-clang-O1:
     cc: clang-17
     input:
     check_type: 5
-    test_str: "cmp"
+    test_str: "cmpl	$0"
     section_name: "connect_v4_prog:"
-    default_option: "-masm=intel"
     special_cause: DB
 
 DB_bool_promotion.c-clang-O0:
@@ -2427,9 +2424,8 @@ DB_bool_promotion.c-clang-O0:
     cc: clang-17
     input:
     check_type: 5
-    test_str: "cmp"
+    test_str: "cmpl	$0"
     section_name: "connect_v4_prog:"
-    default_option: "-masm=intel"
     special_cause: DB
 
 DB_type_demotion.c-gcc-O3:

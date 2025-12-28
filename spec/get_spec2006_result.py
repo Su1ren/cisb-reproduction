@@ -5,7 +5,7 @@ from tabulate import tabulate
 import re
 
 ENV_dict = os.environ
-spec_cpu_path = ENV_dict.get('SEPC_CPU_2006_PATH')
+spec_cpu_path = ENV_dict.get('SPEC_CPU_2006_PATH')
 default_spec_cpu_path = '/cisb_docker/CISB-dataset/spec/cpu2006'
 
 def get_testing_map(file_path):
@@ -95,7 +95,7 @@ def table6_overhead():
     has_default_spec = os.path.isfile(f'{default_spec_cpu_path}/shrc')
     global spec_cpu_path
     if not spec_cpu_path and not has_default_spec:
-        print('please set environment virable SEPC_CPU_2006_PATH, using \"export SEPC_CPU_2006_PATH=\'path/to/spec/cpu2006\'\"')
+        print('please set environment virable SPEC_CPU_2006_PATH, using \"export SPEC_CPU_2006_PATH=\'path/to/spec/cpu2006\'\"')
     else:
         if not spec_cpu_path and has_default_spec:
             spec_cpu_path = default_spec_cpu_path
