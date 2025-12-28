@@ -9,6 +9,6 @@ if __name__ == '__main__':
         out, err = result.communicate()
         err = err.decode()
         if err:
-            print('Compiler ' + compiler + ' do not exits, run scripr/auto_get_compiler.sh or maybe you should install it manully!')
+            print('Compiler ' + compiler + ' do not exits, run script/auto_get_compiler.sh or maybe you should install it manually!')
         else:
             print('Compiler ' + compiler + ' is installed successfully')

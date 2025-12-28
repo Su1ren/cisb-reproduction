@@ -27,6 +27,6 @@ int do_bind(void *ctx) {
 }
 
 int connect_v4_prog(void *ctx) {
-    // 本来语义：若 do_bind() 返回 1 则返回 1，否则返回 0
+    
     return do_bind(ctx) ? 1 : 0;
 }

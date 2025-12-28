@@ -33,14 +33,13 @@ int bpf_test(void *ctx) {
     __u8 *payload = bpf_map_lookup_elem(&test_map, &key);
     if (!payload) return 0;
 
-    int filepart_length = bpf_probe_read_str(payload + MAX_PATH, MAX_PATH + 1, payload);  // 模拟读取，可能未界限
+    int filepart_length = bpf_probe_read_str(payload + MAX_PATH, MAX_PATH + 1, payload);
 
     if (filepart_length <= MAX_PATH) {
-        // 无 barrier_var 工作区，导致优化问题
         // barrier_var(filepart_length);
         payload += filepart_length;
     }
-    // 使用 payload 以防止优化消除
+    // prevent DCE of payload usage
     __u8 val = payload[0];
     bpf_printk("val: %u", val);
 

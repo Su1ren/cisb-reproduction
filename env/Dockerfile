@@ -29,7 +29,7 @@ RUN apt-get -y update && apt-get -y install build-essential \
 RUN mkdir /cisb_docker
 WORKDIR /cisb_docker
 RUN git clone https://github.com/Su1ren/cisb-reproduction.git
-WORKDIR cisb-reproduction
+WORKDIR /cisb_docker/cisb-reproduction
 RUN bash ./env/auto_get_compiler.sh
 RUN apt-get install -y python3-pip
 RUN pip3 install -r requirements.txt

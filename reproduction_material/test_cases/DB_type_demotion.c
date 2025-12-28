@@ -16,32 +16,13 @@
 #include <stdint.h>
 
 int64_t test(int clk_rate) {
-    int64_t adj = 0;         // 看似 64bit，但编译器会根据 “0 + 小值” 推断范围
-    int64_t ns  = 1000000000000LL; // 1e12，保证是大数
+    int64_t adj = 0;
+    uint64_t ns  = 1000000000000LL;
 
-    /* 这个表达式的结果在 32bit 范围内，使编译器把 adj 的有效宽度缩小 */
     adj += -(2 * (1000000000 / clk_rate));
     // adj += -((2 * 1000000000LL) / clk_rate);
 
-    /* 关键：ns += adj；发生类型提升和降级之间的混乱 */
     ns += adj;
 
     return ns;
 }
-
-
-// main:
-//  xor    eax,eax
-//  ret
-//  cs nop WORD PTR [rax+rax*1+0x0]
-//  nop    DWORD PTR [rax]
-// test:
-//  mov    eax,0xc4653600 // <- only 32-bit eax is used, not full 64-bit rax, depromoting int64_t to int32_t
-//  cdq // sign-extend eax to edx:eax
-//  idiv   edi // 32-bit signed division
-//  movabs rdx,0xe8d4a51000 // load 64-bit immediate
-//  add    eax,eax // addition in 32-bit eax
-//  cdqe // sign-extend eax to rax
-//  add    rax,rdx // add 64-bit rax and rdx
-//  ret
-// 
