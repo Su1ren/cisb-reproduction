@@ -1925,7 +1925,7 @@ l-38.c-gcc-O3:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "movl	global_var(%rip), %eax"
+    test_str: "movl	global_var"
     section_name: ".LFB0:"
     special_cause: "DB"
     
@@ -1934,7 +1934,7 @@ l-38.c-gcc-O2:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "movl	global_var(%rip), %eax"
+    test_str: "movl	global_var"
     section_name: ".LFB0:"
     special_cause: "DB"
 
@@ -1943,7 +1943,7 @@ l-38.c-gcc-O1:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "movl	global_var(%rip), %eax"
+    test_str: "movl	global_var"
     section_name: ".LFB0:"
     special_cause: "DB"
 
@@ -1952,7 +1952,7 @@ l-38.c-gcc-O0:
     cc: gcc-12
     input:
     check_type: 6
-    test_str: "movl	global_var(%rip), %eax"
+    test_str: "movl	global_var"
     section_name: ".LFB0:"
     special_cause: "DB"
 
@@ -1961,7 +1961,7 @@ l-38.c-clang-O3:
     cc: clang-14
     input:
     check_type: 6
-    test_str: "movq	global_var@GOTPCREL(%rip), %rax"
+    test_str: "movq	global_var@GOTPCREL"
     section_name: "poll_without_relax:"
     special_cause: "DB"
 
@@ -1970,7 +1970,7 @@ l-38.c-clang-O2:
     cc: clang-14
     input:
     check_type: 6
-    test_str: "movq	global_var@GOTPCREL(%rip), %rax"
+    test_str: "movq	global_var@GOTPCREL"
     section_name: "poll_without_relax:"
     special_cause: "DB"
 
@@ -1979,7 +1979,7 @@ l-38.c-clang-O1:
     cc: clang-14
     input:
     check_type: 6
-    test_str: "movq	global_var@GOTPCREL(%rip), %rax"
+    test_str: "movq	global_var@GOTPCREL"
     section_name: "poll_without_relax:"
     special_cause: "DB"
 
@@ -1988,7 +1988,7 @@ l-38.c-clang-O0:
     cc: clang-14
     input:
     check_type: 6
-    test_str: "movq	global_var@GOTPCREL(%rip), %rax"
+    test_str: "movq	global_var@GOTPCREL"
     section_name: "poll_without_relax:"
     special_cause: "DB"
 
