@@ -1,5 +1,5 @@
 /**
- * inline-to-caller.c
+ * inline_to_caller.c
  * Source: Linux Commit 50f9a76ef127367847cf62999c79304e48018cfa
  * 
  * Test case that demonstrates how inlining a function into its caller
