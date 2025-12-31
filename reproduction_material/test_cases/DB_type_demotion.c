@@ -1,5 +1,5 @@
 /**
- * DB_type_promotion.c
+ * DB_type_demotion.c
  * Source: Linux Commit 3751c3d34cd5a750c86d1c8eaf217d8faf7f9325
  * 
  * Test case for type demotion issues in database code leading to
