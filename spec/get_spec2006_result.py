@@ -6,7 +6,7 @@ import re
 
 ENV_dict = os.environ
 spec_cpu_path = ENV_dict.get('SPEC_CPU_2006_PATH')
-default_spec_cpu_path = '/cisb_docker/CISB-dataset/spec/cpu2006'
+default_spec_cpu_path = '/cisb_docker/cisb-reproduction/spec/cpu2006'
 
 def get_testing_map(file_path):
     # read from the testing result file, generate a map to store the result, return it

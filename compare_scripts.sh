@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 定义日志文件路径
+# log path
 NEW_LOG="new.log"
 OLD_LOG="old.log"
 
@@ -9,50 +9,48 @@ OLD_PY="effectiveness_evaluation_old.py"
 
 OPTION="./compiler_strategies/wall.txt"
 
-# 清理旧的日志文件（如果存在）
+# clean old log
 rm -f "$NEW_LOG" "$OLD_LOG"
 
-# 执行第一个 Python 脚本并将输出保存到 new.log
-echo "执行 script1.py，输出保存到 $NEW_LOG..."
+# execute first script
+echo "Executing script1.py, output into $NEW_LOG..."
 python3 "$NEW_PY" "-opt" "$OPTION" > "$NEW_LOG" 2>&1
 
-# 检查第一个脚本是否执行成功
+# check if exec fails
 if [ $? -ne 0 ]; then
-    echo "错误: script1.py 执行失败"
+    echo "Error: script1.py failed"
     exit 1
 fi
 
-# 执行第二个 Python 脚本并将输出保存到 old.log
-echo "执行 script2.py，输出保存到 $OLD_LOG..."
+# execute second script
+echo "Executing script2.py, output into $OLD_LOG..."
 python3 "$OLD_PY" "-opt" "$OPTION" > "$OLD_LOG" 2>&1
 
-# 检查第二个脚本是否执行成功
+# check if exec fails
 if [ $? -ne 0 ]; then
-    echo "错误: script2.py 执行失败"
+    echo "Error: script2.py failed"
     exit 1
 fi
 
-# 比较两个日志文件
-echo "比较 $NEW_LOG 和 $OLD_LOG 的内容..."
+# Compare the content
+echo "Compare $NEW_LOG and $OLD_LOG content..."
 echo "========================================"
-
-# 使用 diff 比较文件
 diff "$NEW_LOG" "$OLD_LOG"
 
-# 检查 diff 的退出状态
+# check diff status
 DIFF_RESULT=$?
 if [ $DIFF_RESULT -eq 0 ]; then
     echo "========================================"
-    echo "两个日志文件内容完全相同"
+    echo "Entirely the same"
 elif [ $DIFF_RESULT -eq 1 ]; then
     echo "========================================"
-    echo "两个日志文件存在差异"
+    echo "Difference exists"
 else
     echo "========================================"
-    echo "diff 命令执行出错"
+    echo "diff failed"
 fi
 
-# 可选：显示日志文件位置
-echo "日志文件已保存到："
+# print where log stored
+echo "Logs stored in: "
 echo "  - $NEW_LOG"
 echo "  - $OLD_LOG"
