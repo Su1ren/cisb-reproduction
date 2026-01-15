@@ -19,9 +19,9 @@ b-20,successful,4.4.7 -O1,,https://godbolt.org/z/xnsT5ozMz
 b-21/l-9,successful,4.1-12.0.1 -O1,3.0.0-14.0.0 -O1,https://godbolt.org/z/5n8c318PP
 b-22,successful,4.6-12.0.1 -O0,3.0-14.0.0 -O0,https://godbolt.org/z/336hsj697
 b-26,successful,arm 4.1-12.0.1 -O0,arm 9.0.0-14.0.0 -O0,https://godbolt.org/z/a1WKbT458
-l-2,successful,,11.0.0-14.0.0 -O1,https://godbolt.org/z/EYrM3PTaT
+l-2,successful,,11.0.0-14.0.0 -O1,https://godbolt.org/z/sWcqzPKqv
 l-8,successful,,3.0-14.0.0 -O1,https://godbolt.org/z/96W3YGj4q
-l-11,successful,4.1.2-12.0.1 -O0,3.0.0-14.0.0 -O0,https://godbolt.org/z/qnf86fKnc
+l-11,successful,4.1.2-12.0.1 -O0,3.0.0-14.0.0 -O0,https://godbolt.org/z/51ETz7bbd
 l-13,successful,4.1.2 -O0; 9.1-12.0.1 -O1,3.3 - 14.0.0 -O1,https://godbolt.org/z/MPnqYzW3s
 l-15,successful,4.4-12.0.1 -O1; 3.0.0-14.0.0 -O1,,https://godbolt.org/z/o3MoEsa96
 l-16,successful,4.1.2 -O2,,https://godbolt.org/z/GsjWdGYdb
