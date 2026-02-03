@@ -1,2 +1,6 @@
 pyyaml
 tabulate
+matplotlib
+seaborn
+networkx
+pygraphviz

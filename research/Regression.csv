@@ -1,0 +1,5 @@
+﻿Intro Commit ID,Intro Year,Unique bug id,Special Cause,Compiler Version,Compiler Release Year,Fix Commit,Fix Year,Compiler Version,Compiler Release Year,Regression Commit,Regression Year,,
+2f3c7b8137ef6a3f90850d7cb5dbd05d8940403a,2017,l-44,Default,,,8c031ba63f8f2a9efc471cb45b2ff18271556544,2017,,,c42813b71a06a2ff4a155aa87ac609feeab76cf3,2021,,
+ffd8d3fa5813430fe3926fe950fde23630f6b1a0,2008,l-9,DSE,gcc-4.1.2,2007,d4c5efdb97773f59a2b711754ca0953f24516739,2014,,,0b053c9518292705736329a8fe20ef4686ffc8e9,2015,7829fb09a2b4268b30dd9bc782fa5ebee278b137,2015
+78f8b3a24022c48fe600f4aba415d63ceeaec9cd,2008,l-11,Padding,,,c193fa91b9182465a4a01665ad4096a6cdb4db2d,2015,gcc-4.7.1,2012,8e326285924cd13d9d94edc209440ef5b6f85085,2020,,
+4a49b499dfa0c9e42be6d6fdd771f3434c776278,2008,l-6,CT,,,6bf37e5aa90f18baf5acf4874bca505dd667c37f,2013,,,fe8c8a126806fea4465c43d62a1f9d273a572bf5,2013,,
