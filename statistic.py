@@ -191,6 +191,13 @@ def table_7():
         'Ct-verif, Jasmin, FaCT, CT-wasm, Simon, Barthe': ['OS2'],
         'Besson': ['OS1'],
         'Patrignani': ['OS3'],
+        'Conoly': ['OS2'],
+        'Binsec': ['OS1', 'OS2'],
+        'Serberus': ['OS2', 'OS3'],
+        'Arranz Olmos': ['OS2', 'OS3'],
+        'lifting theorem': ['OS3'],
+        'SNIP': ['OS3'],
+        'SECOMP': ['IS1', 'IS2', 'IS3'],
         'STACK': ['IS1'],
         'Unisan': ['OS1'],
         'Yang': ['OS1'],
@@ -198,7 +205,8 @@ def table_7():
         'Sprundel': ['OS1'],
         'Wu': ['IS1', 'IS2', 'IS3'],
         'SpecFuzz, SpecTaint': ['OS3'],
-        'KUBO': ['IS1', 'IS2', 'IS3']
+        'KUBO': ['IS1', 'IS2', 'IS3'],
+        'LookUB': ['IS1', 'IS2', 'IS3']
     }
 
     mitigation_cisb_map = {
@@ -208,6 +216,13 @@ def table_7():
         'Ct-verif, Jasmin, FaCT, CT-wasm, Simon, Barthe': ['l-6'],
         'Besson': ['l-9', 'b-21'],
         'Patrignani': ['l-25'],
+        'Conoly': ['l-6'],
+        'Binsec': ['l-9', 'b-21', 'l-6'],
+        'Serberus': ['l-6', 'l-25', 'l-56'],
+        'Arranz Olmos': ['l-6', 'l-25', 'l-56'],
+        'lifting theorem': ['l-25', 'l-56'],
+        'SNIP': ['l-25', 'l-56'],
+        'SECOMP': ['l-13', 'l-8', 'b-1', 'b-2', 'l-16', 'l-24', 'b-8', 'b-3', 'b-9', 'b-10', 'b-11', 'b-12', 'b-5', 'b-6', 'l-2', 'b-16', 'b-20', 'l-30', 'b-28', 'b-29', 'b-4', 'b-13', 'l-46', 'l-5', 'l-40', 'b-26', 'b-14', 'b-30', 'b-15', 'l-47', 'b-27'],
         'STACK': ['l-13', 'l-8', 'l-24', 'b-8', 'b-9', 'b-10'],
         'Unisan': ['l-11', 'l-29', 'b-22'],
         'Yang': ['l-9', 'b-21'],
@@ -215,7 +230,8 @@ def table_7():
         'Sprundel': ['l-9', 'b-21'],
         'Wu': ['l-13', 'l-8', 'b-2', 'l-24', 'b-8', 'b-9', 'b-10', 'b-12', 'b-5', 'b-6', 'l-30', 'b-4', 'b-29'],
         'SpecFuzz, SpecTaint': ['l-25'],
-        'KUBO': ['l-13', 'l-8', 'l-24', 'b-9', 'b-10', 'b-11', 'b-4', 'l-56']
+        'KUBO': ['l-13', 'l-8', 'l-24', 'b-9', 'b-10', 'b-11', 'b-4', 'l-56'],
+        'LookUB': ['l-13', 'l-8', 'l-24', 'b-8', 'b-9', 'b-11', 'b-4', 'b-14', 'b-29']
     }
 
     mitigation_cisb_comments = {

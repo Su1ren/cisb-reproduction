@@ -7,3 +7,4 @@ gcc-4.1.2
 .pyc
 env/1ms-helper
 research/figures
+__pycache__/
